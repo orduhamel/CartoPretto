@@ -2,11 +2,6 @@ require 'action_view'
 include ActionView::Helpers::NumberHelper
 
 class ProjectsController < ApplicationController
-  # GET /projects or /projects.json
-  def index
-    @projects = Project.all
-  end
-
   def map
     @projects = Project.all
 
