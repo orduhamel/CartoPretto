@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
       {
         lat: project.latitude,
         lng: project.longitude,
-        address: project.adresse_complete,
+        address: project.adresse_with_city,
         rate: project.rate_obtained,
         duration: project.duration,
         loan_amount: project.loan_amount.round(-1),

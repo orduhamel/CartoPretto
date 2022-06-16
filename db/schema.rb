@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_16_085608) do
+ActiveRecord::Schema.define(version: 2022_06_16_131915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2022_06_16_085608) do
     t.float "latitude"
     t.float "longitude"
     t.string "street"
-    t.integer "duration"
+    t.string "duration"
     t.float "sent_rate"
     t.float "rate_obtained"
     t.float "grid_rate"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2022_06_16_085608) do
     t.integer "loan_amount"
     t.datetime "date_obtained"
     t.integer "rn"
+    t.string "adresse_with_city"
   end
 
 end
