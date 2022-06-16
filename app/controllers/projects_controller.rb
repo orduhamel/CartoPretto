@@ -2,12 +2,12 @@ require 'action_view'
 include ActionView::Helpers::NumberHelper
 
 class ProjectsController < ApplicationController
+  before_action :set_projects
+
   def map
   end
 
   def map_results
-    @projects = Project.all
-
     # the `geocoded` scope filters only flats with coordinates (latitude & longitude)
     @markers = @projects.geocoded.map do |project|
       {
@@ -24,5 +24,15 @@ class ProjectsController < ApplicationController
     end
 
     render json: @markers
+  end
+
+  private
+
+  def set_projects
+    if params[:duration].present?
+      @projects = Project.all.where(duration: params[:duration])
+    else
+      @projects = Project.all
+    end
   end
 end
