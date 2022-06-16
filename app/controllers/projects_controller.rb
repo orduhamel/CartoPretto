@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
         address: project.adresse_with_city,
         rate: project.rate_obtained,
         duration: project.duration,
-        loan_amount: project.loan_amount.round(-1),
+        loan_amount: number_to_human(project.loan_amount, :format => '%n%u', :units => { :thousand => 'K' }),
         nb_mortgagors: project.nb_mortgagors,
         total_income: number_to_human(project.total_income, :format => '%n%u', :units => { :thousand => 'K' }),
         age: project.age_moyen
