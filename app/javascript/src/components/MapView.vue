@@ -10,6 +10,30 @@
       </div>
   
       <p class="header-subtitle">Les derniers taux obtenus par Pretto pour nos clients ! </p>
+
+      <div class="header-rates">
+        <div class="rate-block">
+          <p>Taux &lt; 15 ans</p>
+          <p>{{ averageRates[0] }} %</p>
+        </div>
+
+        <div class="rate-block">
+          <p>Taux 15 ans</p>
+          <p>{{ averageRates[1] }} %</p>
+        </div>
+
+        <div class="rate-block">
+          <p>Taux 20 ans</p>
+          <p>{{ averageRates[2] }} %</p>
+        </div>
+
+        <div class="rate-block">
+          <p>Taux 25 ans</p>
+          <p>{{ averageRates[3] }} %</p>
+        </div>
+
+        <p class="rate-disclaimer">NB : Taux moyens obtenus </p>
+      </div>
     </header>
 
     <div class="map-container">
@@ -18,6 +42,13 @@
         :options="mapOptions"
         @loaded="handleMapLoad"
       />
+
+      <!-- <div class="filters-container">
+        <div class="filter-duration">
+          <label>Filtrer par durée</label>
+          <input type="range" step="5" min="0" max="25" />
+        </div>
+      </div> -->
     </div>
   </section>
 </template>
@@ -40,6 +71,12 @@ const mapOptions = reactive({
 });
 
 const data = ref([])
+const averageRates = ref([
+  1.04,
+  1.15,
+  1.59,
+  1.39,
+])
 
 const response = await fetch('/map_results')
 data.value = await response.json()
@@ -177,18 +214,18 @@ const handleMapLoad = ($map) => {
         <div class="tooltip-block">
           <img src="/loan.svg" />
           <div>
-            <p>${point.loan_amount} € empruntés</p>
+            <p>${point.loan_amount}€ empruntés</p>
           </div>
         </div>
         <div class="tooltip-block">
           <img src="/mortgagors.svg" />
           <div>
             <p>Emprunt ${point.nb_mortgagors > 1 ? 'à deux' : 'seul'}</p>
-            <p>${point.total_income} € de revenus bruts annuels</p>
+            <p>${point.total_income}€ de revenus bruts annuels</p>
             <p>${point.age} ans d'âge moyen</p>
           </div>
         </div>
-        <p class="tooltip-rate"><img src="/bulb.svg" /> ${point.rate} % sur ${point.duration} ans</p>
+        <p class="tooltip-rate"><img src="/bulb.svg" /> ${point.rate} % sur ${point.duration}</p>
       `)
       .addTo(map);
   });
