@@ -1,16 +1,15 @@
 <template>
   <section class="page">
     <header class="page-header">
-      <img src="/mapWithHouse.svg" class="header-logo" />
-
-      <div>
+      <div class="header-logo">
         <h1 class="header-title">
           <span>Carto</span>
+          <img src="/logo.svg" class="logo" />
           <span>Pretto</span>
         </h1>
-  
-        <p class="header-subtitle">Les derniers taux obtenus par Pretto pour nos clients ! </p>
       </div>
+  
+      <p class="header-subtitle">Les derniers taux obtenus par Pretto pour nos clients ! </p>
     </header>
 
     <div class="map-container">
@@ -151,12 +150,14 @@ const handleMapLoad = ($map) => {
   // description HTML from its properties.
   const popup = new mapboxgl.Popup({
     closeOnClick: false,
+    closeButton: false,
+    maxWidth: 'none',
   })
 
   map.on('mouseenter', 'unclustered-point', (e) => {
     map.getCanvas().style.cursor = 'pointer';
     const coordinates = e.features[0].geometry.coordinates.slice();
-    const rate = e.features[0].properties.rate;
+    const point = e.features[0].properties;
     
     // Ensure that if the map is zoomed out such that
     // multiple copies of the feature are visible, the
@@ -166,7 +167,29 @@ const handleMapLoad = ($map) => {
     }
     
     popup.setLngLat(coordinates)
-      .setHTML(`taux: ${rate}`)
+      .setHTML(`
+        <div class="tooltip-block">
+          <img src="/house.svg" />
+          <div>
+            <p>${point.address}</p>
+          </div>
+        </div>
+        <div class="tooltip-block">
+          <img src="/loan.svg" />
+          <div>
+            <p>${point.loan_amount} € empruntés</p>
+          </div>
+        </div>
+        <div class="tooltip-block">
+          <img src="/mortgagors.svg" />
+          <div>
+            <p>Emprunt ${point.nb_mortgagors > 1 ? 'à deux' : 'seul'}</p>
+            <p>${point.total_income} € de revenus bruts annuels</p>
+            <p>${point.age} ans d'âge moyen</p>
+          </div>
+        </div>
+        <p class="tooltip-rate"><img src="/bulb.svg" /> ${point.rate} % sur ${point.duration} ans</p>
+      `)
       .addTo(map);
   });
 
@@ -183,58 +206,3 @@ const handleMapLoad = ($map) => {
   });
 }
 </script>
-
-<style scoped>
-.page {
-  position: relative;
-}
-
-.page-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  background-color: white;
-  padding: 0.5rem 1rem;
-  display: flex;
-}
-
-.header-logo {
-  max-width: 100%;
-  width: 150px;
-  height: auto;
-  margin-right: 1rem;
-}
-
-.header-title {
-  font-size: 60px;
-  font-family: 'Inter', Arial, sans-serif;
-  font-weight: 900;
-  display: flex;
-  flex-direction: column;
-}
-
-.header-title > span {
-  line-height: 0.8;
-}
-
-.header-title > span:last-of-type {
-  color: #006855;
-}
-
-.header-subtitle {
-  color: #006855;
-  font-style: italic;
-}
-
-.map-container {
-  width: 100vw;
-  height: 100vh;
-}
-
-.map-component {
-  width: 100%;
-  height: 100%;
-}
-</style>
