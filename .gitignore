@@ -5,7 +5,7 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # Ignore csv file
-/lib/assets/CartoPretto.csv
+/lib/assets/*
 
 # Ignore bundler config.
 /.bundle
