@@ -10,18 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_15_161040) do
+ActiveRecord::Schema.define(version: 2022_06_16_085608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "loan_rates", force: :cascade do |t|
-    t.string "address"
-    t.string "rate"
+  create_table "projects", force: :cascade do |t|
+    t.string "adresse_complete"
+    t.string "zipcode"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.float "latitude"
     t.float "longitude"
+    t.string "street"
+    t.integer "duration"
+    t.float "sent_rate"
+    t.float "rate_obtained"
+    t.float "grid_rate"
+    t.float "grid_decote_rate"
+    t.integer "age_moyen"
+    t.integer "nb_mortgagors"
+    t.integer "total_income"
+    t.integer "loan_amount"
+    t.datetime "date_obtained"
+    t.integer "rn"
   end
 
 end

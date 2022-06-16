@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  root to: 'loan_rates#map'
+  root to: 'projects#map'
 
-  get 'map', to: 'loan_rates#map', as: :map
-  resources :loan_rates
+  resources :projects
+  get 'map', to: 'projects#map', as: :map
 end
