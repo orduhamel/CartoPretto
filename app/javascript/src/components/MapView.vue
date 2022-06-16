@@ -85,6 +85,11 @@ let map = readonly({})
 const handleMapLoad = ($map) => {
   map = $map
 
+  const nav = new mapboxgl.NavigationControl({
+    showCompass: false,
+  });
+  map.addControl(nav, 'top-right');
+
   map.addSource('projects', {
     type: 'geojson',
     data: {
