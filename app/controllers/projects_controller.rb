@@ -3,6 +3,9 @@ include ActionView::Helpers::NumberHelper
 
 class ProjectsController < ApplicationController
   def map
+  end
+
+  def map_results
     @projects = Project.all
 
     # the `geocoded` scope filters only flats with coordinates (latitude & longitude)
@@ -19,5 +22,7 @@ class ProjectsController < ApplicationController
         age: project.age_moyen
       }
     end
+
+    render json: @markers
   end
 end
