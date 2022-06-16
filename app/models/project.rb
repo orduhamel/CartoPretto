@@ -6,5 +6,4 @@ class Project < ApplicationRecord
   validates :rate_obtained, presence: true
 
   after_validation :geocode, if: :will_save_change_to_adresse_complete?
-  end
 end
